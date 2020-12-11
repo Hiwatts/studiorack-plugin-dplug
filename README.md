@@ -24,6 +24,9 @@ Ensure all git submodules are initialized:
 
     git submodule update --init --recursive
 
+Build the tool:
+
+    cd ./dplugsdk/tools/dplug-build && dub && cd ../../../
 
 ## Usage
 
@@ -52,7 +55,7 @@ Depending on the the operating system you are on/building for, swap the generato
 
 Compile a development version of the plugin using:
 
-    ?
+    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 && cd ../../../
 
 View the built plugin files at:
 
@@ -60,11 +63,15 @@ View the built plugin files at:
 
 Build the final plugin binaries using:
 
-    ?
+    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 --final && cd ../../../
+
+Rename file if it contains invalid characters/spaces:
+
+    mv "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/Witty Audio CLIP It.vst3" "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/WittyAudioCLIPIt.vst3"
 
 Copy any additional files:
 
-    cp -v ./src/assets/* ./build/
+    cp -v ./src/assets/* ./dplugsdk/examples/clipit/builds/macOS-64b-VST3
 
 For metadata generation as json use the studiorack-cli:
 
@@ -72,11 +79,11 @@ For metadata generation as json use the studiorack-cli:
 
 Validate your plugin:
 
-    studiorack validate "./build/**/*.{vst,vst3}"
+    studiorack validate "./dplugsdk/examples/clipit/builds/**/*.{vst,vst3}"
 
 Convert and enrich validator report metadata into json:
 
-    studiorack validate "./build/**/*.{vst,vst3}" --json
+    studiorack validate "./dplugsdk/examples/clipit/builds/**/*.{vst,vst3}" --json
 
 
 ## Build (automatic)
