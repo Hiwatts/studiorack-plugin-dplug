@@ -12,7 +12,7 @@ Audio plugin starter template using Dplug framework to build VST3 plugins using:
 
 Install D-lang and D-compiler using:
 
-    brew install dub dmd ldc2
+    brew install dub dmd ldc
 
 Check you have the correct dependencies installed:
 
@@ -100,7 +100,7 @@ This will run an automated build and release process on GitHub Actions:
 
 ## Resources & guides
 
-* [Dplu framework source code and examples](https://github.com/AuburnSounds/Dplug)
+* [Dplug framework source code and examples](https://github.com/AuburnSounds/Dplug)
 * [Official Dplug guide to creating VST audio plugins](https://dplug.org)
 
 
