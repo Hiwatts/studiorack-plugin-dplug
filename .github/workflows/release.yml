@@ -53,7 +53,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update && sudo apt-get install libx11-dev dub
-          curl -fsS https://dlang.org/install.sh | bash -s dmd
+          curl -fsS https://dlang.org/install.sh | bash -s $(DC)-$(DVersion) -a
+          ~/dlang/install.sh list
+          source ~/dlang/$(DC)-$(DVersion)/activate
 
       - name: Install macOS dependencies
         if: matrix.os == 'macos-latest'
@@ -76,10 +78,8 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          export VST2_SDK="example"
           cd ./dplugsdk/examples/clipit
-          echo "./dplugsdk/$VST2_SDK/pluginterfaces/vst2.x"
-          ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }}
+          ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }} --compiler ldc2
           cd ../../../
           ls ./dplugsdk/examples/clipit/builds
           mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
