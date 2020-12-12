@@ -70,12 +70,13 @@ jobs:
         run: |
           git submodule update --init --recursive
           cd ./dplugsdk/tools/dplug-build
-          dub
+          dub --compiler ldc2
           cd ../../../
 
       - name: Build
         shell: bash
         run: |
+          export VST2_SDK="example"
           cd ./dplugsdk/examples/clipit
           ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }}
           cd ../../../
