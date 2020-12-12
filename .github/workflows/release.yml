@@ -78,6 +78,7 @@ jobs:
         run: |
           export VST2_SDK="example"
           cd ./dplugsdk/examples/clipit
+          echo "./dplugsdk/$VST2_SDK/pluginterfaces/vst2.x"
           ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }}
           cd ../../../
           ls ./dplugsdk/examples/clipit/builds

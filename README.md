@@ -26,7 +26,7 @@ Ensure all git submodules are initialized:
 
 Build the tool:
 
-    cd ./dplugsdk/tools/dplug-build && dub && cd ../../../
+    cd ./dplugsdk/tools/dplug-build && dub --compiler ldc2 && cd ../../../
 
 ## Usage
 
@@ -55,7 +55,7 @@ Depending on the the operating system you are on/building for, swap the generato
 
 Compile a development version of the plugin using:
 
-    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 && cd ../../../
+    export VST2_SDK="example" cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 && cd ../../../
 
 View the built plugin files at:
 
@@ -63,7 +63,7 @@ View the built plugin files at:
 
 Build the final plugin binaries using:
 
-    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 --final && cd ../../../
+    export VST2_SDK="example" && cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 --final && cd ../../../
 
 Rename file if it contains invalid characters/spaces:
 
