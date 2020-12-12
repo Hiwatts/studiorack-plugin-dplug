@@ -51,7 +51,7 @@ jobs:
 
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get update && sudo apt-get install libx11-dev dub && apt install ldc
+        run: sudo apt-get update && sudo apt-get install libx11-dev dub ldc
 
       - name: Install macOS dependencies
         if: matrix.os == 'macos-latest'
