@@ -69,12 +69,16 @@ jobs:
         shell: bash
         run: |
           git submodule update --init --recursive
-          cd ./dplugsdk/tools/dplug-build && dub && cd ../../../
+          cd ./dplugsdk/tools/dplug-build
+          dub
+          cd ../../../
 
       - name: Build
         shell: bash
         run: |
-          cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }} && cd ../../../
+          cd ./dplugsdk/examples/clipit
+          ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }}
+          cd ../../../
           ls ./dplugsdk/examples/clipit/builds
           mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
 
