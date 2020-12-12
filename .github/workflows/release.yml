@@ -51,11 +51,7 @@ jobs:
 
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update && sudo apt-get install libx11-dev dub
-          curl -fsS https://dlang.org/install.sh | bash -s $(DC)-$(DVersion) -a
-          ~/dlang/install.sh list
-          source ~/dlang/$(DC)-$(DVersion)/activate
+        run: sudo apt-get update && sudo apt-get install libx11-dev dub && apt install ldc
 
       - name: Install macOS dependencies
         if: matrix.os == 'macos-latest'
