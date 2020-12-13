@@ -33,7 +33,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             name: linux
             generator: x86_64-pc-linux-gnu
             path: ./dplugsdk/examples/clipit/builds/linux-64b-VST3
