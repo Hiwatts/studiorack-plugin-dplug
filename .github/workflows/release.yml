@@ -56,6 +56,8 @@ jobs:
           curl -fsS https://dlang.org/install.sh | bash -s ldc-1.17.0 -a
           ~/dlang/install.sh list
           source ~/dlang/ldc-1.17.0/activate
+          ldc2 --version
+          dub --version
 
       - name: Install macOS dependencies
         if: matrix.os == 'macos-latest'
@@ -68,6 +70,7 @@ jobs:
       - name: Setup
         shell: bash
         run: |
+          source ~/dlang/ldc-1.17.0/activate
           ldc2 --version
           dub --version
           git submodule update --init --recursive
