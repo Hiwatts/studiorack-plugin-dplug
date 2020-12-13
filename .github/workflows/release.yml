@@ -73,6 +73,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
+          mkdir -vp VST2_SDK/pluginterfaces/vst2.x
           export VST2_SDK="$(pwd)/VST2_SDK"
           cd ./dplugsdk/examples/clipit
           echo $VST2_SDK
