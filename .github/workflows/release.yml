@@ -75,7 +75,7 @@ jobs:
         run: |
           export VST2_SDK="$(pwd)/VST2_SDK"
           cd ./dplugsdk/examples/clipit
-          ../../tools/dplug-build/dplug-build -c VST3 -a ${{ matrix.generator }} --compiler ldc2
+          ../../tools/dplug-build/dplug-build -c VST3 --compiler ldc2
           cd ../../../
           ls ./dplugsdk/examples/clipit/builds
           mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
