@@ -66,6 +66,7 @@ jobs:
         run: |
           git submodule update --init --recursive
           cd ./dplugsdk/tools/dplug-build
+          ldc2 -version
           dub --compiler ldc2
           cd ../../../
 
