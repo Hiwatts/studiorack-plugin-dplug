@@ -53,8 +53,8 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update && sudo apt-get -yq install libx11-dev
-          curl -fsS https://dlang.org/install.sh | bash -s ldc-1.17.0 -a
-          ~/dlang/install.sh list
+          curl -fsS https://dlang.org/install.sh | bash -s ldc
+          ~/dlang/install.sh install ldc-1.17.0,dub
           source ~/dlang/ldc-1.17.0/activate
           ldc2 --version
           dub --version
