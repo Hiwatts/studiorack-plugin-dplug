@@ -58,7 +58,7 @@ jobs:
           source ~/dlang/ldc-1.17.0/activate
           ldc2 --version
           dub --version
-          echo "source ~/dlang/ldc-1.17.0/activate" >> $GITHUB_PATH
+          echo "~/dlang/ldc-1.17.0/activate" >> $GITHUB_PATH
           echo $GITHUB_PATH
 
       - name: Install macOS dependencies
