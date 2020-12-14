@@ -36,7 +36,7 @@ jobs:
           - os: ubuntu-latest
             name: linux
             generator: x86_64-pc-linux-gnu
-            path: ./dplugsdk/examples/clipit/builds/linux-64b-VST3
+            path: ./dplugsdk/examples/clipit/builds/Linux-64b-VST3
           - os: macos-latest
             name: mac
             generator: x86_64-apple-darwin19.6.0
