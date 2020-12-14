@@ -52,9 +52,13 @@ jobs:
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get update && sudo apt-get -yq install libx11-dev ldc
+          sudo apt-get update && sudo apt-get -yq install libx11-dev
+          curl -fsS https://dlang.org/install.sh | bash -s ldc-1.17.0 -a
+          ~/dlang/install.sh list
+          source ~/dlang/ldc-1.17.0/activate
           ldc2 --version
           dub --version
+          echo "source ~/dlang/ldc-1.17.0/activate" >> $GITHUB_PATH
 
       - name: Install macOS dependencies
         if: matrix.os == 'macos-latest'
@@ -80,6 +84,7 @@ jobs:
           mkdir -vp VST2_SDK/pluginterfaces/vst2.x
           export VST2_SDK="$(pwd)/VST2_SDK"
           cd ./dplugsdk/examples/clipit
+          echo $VST2_SDK
           ../../tools/dplug-build/dplug-build -c VST3 --compiler ldc2
           cd ../../../
           ls ./dplugsdk/examples/clipit/builds
