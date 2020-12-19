@@ -49,30 +49,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Linux dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update && sudo apt-get -yq install libx11-dev
-          curl -fsS https://dlang.org/install.sh | bash -s ldc
-          ~/dlang/install.sh install ldc-1.17.0,dub
-          source ~/dlang/ldc-1.17.0/activate
-          ldc2 --version
-          dub --version
-
-      - name: Install macOS dependencies
-        if: matrix.os == 'macos-latest'
-        run: brew install dub dmd ldc
-
-      - name: Install Windows dependencies
-        if: matrix.os == 'windows-latest'
-        run: choco install dub dmd ldc zip
+      - name: Install D compiler
+        uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-1.17.0
 
       - name: Setup
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-            source ~/dlang/ldc-1.17.0/activate
-          fi
           ldc2 --version
           dub --version
           git submodule update --init --recursive
@@ -83,9 +67,6 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-            source ~/dlang/ldc-1.17.0/activate
-          fi
           mkdir -vp VST2_SDK/pluginterfaces/vst2.x
           export VST2_SDK="$(pwd)/VST2_SDK"
           cd ./dplugsdk/examples/clipit
