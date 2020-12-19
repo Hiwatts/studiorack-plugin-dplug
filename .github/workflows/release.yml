@@ -44,7 +44,7 @@ jobs:
           - os: windows-latest
             name: win
             generator: x86_64
-            path: ./dplugsdk/examples/clipit/builds/win-64b-VST3
+            path: ./dplugsdk/examples/clipit/builds/Windows-64b-VST3
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
