@@ -75,7 +75,7 @@ jobs:
           echo $VST2_SDK
           ../../tools/dplug-build/dplug-build -c VST3 -a x86_64
           cd ../../../
-          ls ./dplugsdk/examples/clipit/builds
+          ls "${{ matrix.path }}"
           mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
 
       - name: Install node
