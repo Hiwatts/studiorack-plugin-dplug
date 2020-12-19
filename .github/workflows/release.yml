@@ -37,14 +37,17 @@ jobs:
             name: linux
             generator: x86_64-pc-linux-gnu
             path: ./dplugsdk/examples/clipit/builds/Linux-64b-VST3
+            file: Witty Audio CLIP It.vst3
           - os: macos-latest
             name: mac
             generator: x86_64-apple-darwin19.6.0
             path: ./dplugsdk/examples/clipit/builds/macOS-64b-VST3
+            file: Witty Audio CLIP It.vst3
           - os: windows-latest
             name: win
             generator: x86_64
             path: ./dplugsdk/examples/clipit/builds/Windows-64b-VST3
+            file: Witty Audio CLIP It-64.vst3
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -76,7 +79,7 @@ jobs:
           ../../tools/dplug-build/dplug-build -c VST3 -a x86_64
           cd ../../../
           ls "${{ matrix.path }}"
-          mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
+          mv "${{ matrix.path }}/${{ matrix.file }}" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
 
       - name: Install node
         uses: actions/setup-node@v1
