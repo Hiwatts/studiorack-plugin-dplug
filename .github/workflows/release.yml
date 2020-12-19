@@ -77,7 +77,7 @@ jobs:
           dub --version
           git submodule update --init --recursive
           cd ./dplugsdk/tools/dplug-build
-          dub --compiler ldc2
+          dub build
           cd ../../../
 
       - name: Build
@@ -90,7 +90,7 @@ jobs:
           export VST2_SDK="$(pwd)/VST2_SDK"
           cd ./dplugsdk/examples/clipit
           echo $VST2_SDK
-          ../../tools/dplug-build/dplug-build -c VST3 --compiler ldc2
+          ../../tools/dplug-build/dplug-build -c VST3 -a x86_64
           cd ../../../
           ls ./dplugsdk/examples/clipit/builds
           mv "${{ matrix.path }}/Witty Audio CLIP It.vst3" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
