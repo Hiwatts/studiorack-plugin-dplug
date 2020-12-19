@@ -47,15 +47,13 @@ Todo
 
 ## Build (manual)
 
-Depending on the the operating system you are on/building for, swap the generator string in the build commands:
+Check your default compiler target using:
 
-* Linux: "Unix Makefiles"
-* MacOS: "Xcode"
-* Windows: "Visual Studio 16 2019"
+    ldc2 -version
 
 Compile a development version of the plugin using:
 
-    export VST2_SDK="example" cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 && cd ../../../
+    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 && cd ../../../
 
 View the built plugin files at:
 
@@ -63,7 +61,7 @@ View the built plugin files at:
 
 Build the final plugin binaries using:
 
-    export VST2_SDK="example" && cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 --final && cd ../../../
+    cd ./dplugsdk/examples/clipit && ../../tools/dplug-build/dplug-build -c VST3 -a x86_64 --final && cd ../../../
 
 Rename file if it contains invalid characters/spaces:
 
