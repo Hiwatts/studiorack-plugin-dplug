@@ -73,7 +73,12 @@ jobs:
           cd ./dplugsdk/examples/clipit
           ../../tools/dplug-build/dplug-build -c VST3 -a x86_64
           cd ../../../
-          mv "${{ matrix.path }}/${{ matrix.file }}" "${{ matrix.path }}/WittyAudioCLIPIt.vst3"
+          mv "${{ matrix.path }}/${{ matrix.file }}" "${{ matrix.path }}/witty-audio-clip-it.vst3"
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
 
       - name: Metadata
         shell: bash

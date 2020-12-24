@@ -57,7 +57,7 @@ Compile a development version of the plugin using:
 
 View the built plugin files at:
 
-    ./build/
+    ./dplugsdk/examples/clipit/builds
 
 Build the final plugin binaries using:
 
@@ -65,7 +65,7 @@ Build the final plugin binaries using:
 
 Rename file if it contains invalid characters/spaces:
 
-    mv "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/Witty Audio CLIP It.vst3" "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/WittyAudioCLIPIt.vst3"
+    mv "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/Witty Audio CLIP It.vst3" "./dplugsdk/examples/clipit/builds/macOS-64b-VST3/witty-audio-clip-it.vst3"
 
 Copy any additional files:
 
