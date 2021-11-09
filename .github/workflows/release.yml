@@ -34,16 +34,19 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: ubuntu-latest
+            arch: x86-64
             name: linux
             generator: x86_64-pc-linux-gnu
             path: ./dplugsdk/examples/clipit/builds/Linux-64b-VST3
             file: Witty Audio CLIP It.vst3
           - os: macos-latest
+            arch: x86-64
             name: mac
             generator: x86_64-apple-darwin19.6.0
             path: ./dplugsdk/examples/clipit/builds/macOS-64b-VST3
             file: Witty Audio CLIP It.vst3
           - os: windows-latest
+            arch: x86-64
             name: win
             generator: x86_64
             path: ./dplugsdk/examples/clipit/builds/Windows-64b-VST3
