@@ -9,10 +9,9 @@ on:
 jobs:
   create_release:
     name: Create release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
-      id: ${{ steps.draft_release.outputs.id }}
-      html_url: ${{ steps.draft_release.outputs.html_url }}
+      upload_id: ${{ steps.draft_release.outputs.id }}
       upload_url: ${{ steps.draft_release.outputs.upload_url }}
     steps:
       - name: Draft release
@@ -28,119 +27,18 @@ jobs:
   build_release:
     name: Build release
     needs: create_release
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            name: linux
-            generator: x86_64-pc-linux-gnu
-            path: ./dplugsdk/examples/clipit/builds/Linux-64b-VST3
-            file: Witty Audio CLIP It.vst3
-          - os: macos-latest
-            name: mac
-            generator: x86_64-apple-darwin19.6.0
-            path: ./dplugsdk/examples/clipit/builds/macOS-64b-VST3
-            file: Witty Audio CLIP It.vst3
-          - os: windows-latest
-            name: win
-            generator: x86_64
-            path: ./dplugsdk/examples/clipit/builds/Windows-64b-VST3
-            file: Witty Audio CLIP It-64.vst3
+    uses: studiorack/studiorack-workflows/.github/workflows/dplug.yml@main
+    with:
+      release_id: ${{ needs.create_release.outputs.upload_id }}
+      release_url: ${{ needs.create_release.outputs.upload_url }}
+
+  publish_release:
+    name: Publish release
+    needs: [create_release, build_release]
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install D compiler
-        uses: dlang-community/setup-dlang@v1
-        with:
-          compiler: ldc-1.17.0
-
-      - name: Setup
-        shell: bash
-        run: |
-          git submodule update --init --recursive
-          export LDC_VSDIR="$(pwd)/LDC_VSDIR"
-          cd ./dplugsdk/tools/dplug-build
-          dub build
-          cd ../../../
-
-      - name: Build
-        shell: bash
-        run: |
-          export LDC_VSDIR="$(pwd)/LDC_VSDIR"
-          cd ./dplugsdk/examples/clipit
-          ../../tools/dplug-build/dplug-build -c VST3 -a x86_64
-          cd ../../../
-          mv "${{ matrix.path }}/${{ matrix.file }}" "${{ matrix.path }}/witty-audio-clip-it.vst3"
-
-      - name: Install node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-
-      - name: Metadata
-        shell: bash
-        run: |
-          npm install @studiorack/cli -g
-          cp -v ./src/assets/* "${{ matrix.path }}"
-          studiorack validate "${{ matrix.path }}/**/*.{vst,vst3}" --files --json --txt --zip --summary
-
-      - name: Upload
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const path = require('path');
-            const fs = require('fs');
-            const release_id = '${{ needs.create_release.outputs.id }}';
-            for (let file of await fs.readdirSync('${{ matrix.path }}')) {
-              if (path.extname(file) === '.zip') {
-                console.log('upload zip', `${{ matrix.path }}/${file}`);
-                await github.repos.uploadReleaseAsset({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  release_id: release_id,
-                  name: `${path.basename(file, path.extname(file))}-${{ matrix.name }}.zip`,
-                  data: await fs.readFileSync(`${{ matrix.path }}/${file}`)
-                });
-                if ("${{ matrix.os }}" == 'macos-latest') {
-                  console.log('upload png', `${{ matrix.path }}/${path.basename(file, path.extname(file))}.png`);
-                  await github.repos.uploadReleaseAsset({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    release_id: release_id,
-                    name: `${path.basename(file, path.extname(file))}.png`,
-                    data: await fs.readFileSync(`${{ matrix.path }}/${path.basename(file, path.extname(file))}.png`)
-                  });
-                  console.log('upload wav', `${{ matrix.path }}/${path.basename(file, path.extname(file))}.wav`);
-                  await github.repos.uploadReleaseAsset({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    release_id: release_id,
-                    name: `${path.basename(file, path.extname(file))}.wav`,
-                    data: await fs.readFileSync(`${{ matrix.path }}/${path.basename(file, path.extname(file))}.wav`)
-                  });
-                }
-              }
-            }
-
-      - name: Upload metadata
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ matrix.path }}/plugins.json
-          asset_name: plugins.json
-          asset_content_type: application/json
-
-      - name: Publish release
-        if: matrix.os == 'windows-latest'
-        uses: eregon/publish-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          release_id: ${{ needs.create_release.outputs.id }}
+    - uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ needs.create_release.outputs.upload_id }}

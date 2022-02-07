@@ -1,5 +1,5 @@
-# studiorack-plugin-dplug
-![Release](https://github.com/studiorack/studiorack-plugin-dplug/workflows/Release/badge.svg)
+# studiorack-template-dplug
+![Release](https://github.com/studiorack/studiorack-template-dplug/workflows/Release/badge.svg)
 
 Audio plugin starter template using Dplug framework to build VST3 plugins using:
 
